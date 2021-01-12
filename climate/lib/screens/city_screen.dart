@@ -1,5 +1,5 @@
 import 'package:climate/utilities/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 
 class CityScreen extends StatefulWidget {
   @override
@@ -7,6 +7,9 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  //for city name to be passed down to the location screen
+  String cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,20 +26,35 @@ class _CityScreenState extends State<CityScreen> {
             children: <Widget>[
               Align(
                 alignment: Alignment.topLeft,
-                child: FlatButton(
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 50.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(top:10.0),
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 50.0,
+                    ),
                   ),
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(20.0),
-                child: null,
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  onChanged: (value){
+                    cityName = value;
+                  },
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: kTextDecoration,
+                ),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, cityName);
+                },
                 child: Text(
                   'Get Weather',
                   style: kButtonTextStyle,

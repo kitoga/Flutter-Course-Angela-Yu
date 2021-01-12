@@ -1,6 +1,16 @@
-import 'package:climate/services/location.dart';
+import 'package:climate/screens/location_screen.dart';
+import 'package:climate/services/weather.dart';
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+
+const spinkit = SpinKitWave(
+  color: Colors.white,
+  size: 50.0,
+);
+
+
+//import 'package:geolocator/geolocator.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -9,26 +19,34 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
-  
+//To have access to our current latitude and longitude
+  // double latitute;
+  // double longitude;
 
   void initState() { 
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
-  void getLocation()async{
-    Location location = Location(); 
-    await location.getCurrentLocation();
-    print(location.latitute);
-    print(location.longitude);
+  void getLocationData() async{
+    // weatherModel = WeatherModel(); this or the code below
+    var getWeather = await WeatherModel().getLocationWeather();
+
+//Passing the weatherData to the location screen
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen(location: getWeather,)));
   }
-  // void getLocation() async{
-  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-  //   print(position);
-  // }
+ 
+  
+  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: spinkit,
+      ),
+    );
   }
 }
+
+

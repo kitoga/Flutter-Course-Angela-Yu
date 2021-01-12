@@ -1,4 +1,33 @@
+import '../services/networking.dart';
+import 'package:climate/services/location.dart';
 class WeatherModel {
+
+  Future<dynamic> getCityWeather(cityName)async{
+
+    NetworkHelper networkHelper = NetworkHelper(url: 'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=a3c5880752eda57a18f7d83eef1808ec&units=metric');
+
+    //to gain Assests 
+    var weatherData = await networkHelper.getData();
+    return weatherData;
+  }
+
+  Future<dynamic> getLocationWeather() async{
+// We are getting current location for the code below.................
+    Location location = Location(); 
+    await location.getCurrentLocation();
+//tapping from current latitute and longitude
+    // latitute = location.latitute;
+    // longitude = location.longitude;  
+    
+    NetworkHelper networkHelper = NetworkHelper(url: 'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitute}&lon=${location.longitude}&appid=a3c5880752eda57a18f7d83eef1808ec&units=metric');
+
+//We will use this object in the location_screen.dart for example getting the id / area / temperature........................
+      var getWeather = await networkHelper.getData();
+      return getWeather;
+    }
+
+
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
