@@ -1,3 +1,8 @@
+import './network.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -28,4 +33,9 @@ const List<String> cryptoList = [
   'LTC',
 ];
 
-class CoinData {}
+class CoinData {
+
+  
+}
+
+//'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD'
